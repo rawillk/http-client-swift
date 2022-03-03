@@ -38,6 +38,12 @@ public extension HTTP {
             return try await send(request: request)
         }
         
+        public func patch<Value: Decodable, JSON: Encodable>(_ json: JSON, path: String, queryItems: [URLQueryItem] = []) async throws -> Value {
+            let body = try settings.encoder.encode(json)
+            let request = try createRequest(.PATCH, path: path, queryItems: queryItems, body: body)
+            return try await send(request: request)
+        }
+        
         public func delete<Value: Decodable, JSON: Encodable>(_ json: JSON, path: String, queryItems: [URLQueryItem] = []) async throws -> Value {
             let body = try settings.encoder.encode(json)
             let request = try createRequest(.DELETE, path: path, queryItems: queryItems, body: body)
