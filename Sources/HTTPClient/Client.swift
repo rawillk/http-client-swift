@@ -45,8 +45,7 @@ public extension HTTP {
         }
         
         public func delete<Value: Decodable, JSON: Encodable>(_ json: JSON, path: String, queryItems: [URLQueryItem] = []) async throws -> Value {
-            let body = try settings.encoder.encode(json)
-            let request = try createRequest(.DELETE, path: path, queryItems: queryItems, body: body)
+            let request = try createRequest(.DELETE, path: path, queryItems: queryItems, body: nil)
             return try await send(request: request)
         }
         
