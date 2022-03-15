@@ -49,6 +49,12 @@ public extension HTTP {
             return try await send(request: request)
         }
         
+        public func upload<Value: Decodable>(multipart: Multipart, path: String, queryItems: [URLQueryItem] = []) async throws -> Value {
+            let request = try createRequest(.POST, path: path, queryItems: queryItems, body: multipart.data)
+            settings.headers[.contentType] = "multipart/form-data; boundary=" + multipart.boundary
+            return try await send(request: request)
+        }
+        
         private func send<Value: Decodable>(request: URLRequest) async throws -> Value {
             if #available(iOS 15.0, macOS 12.0, *) {
                 let (data, response) = try await session.data(for: request)
