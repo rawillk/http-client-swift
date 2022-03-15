@@ -50,7 +50,7 @@ public extension HTTP {
         }
         
         public func upload<Value: Decodable>(multipart: Multipart, path: String, queryItems: [URLQueryItem] = []) async throws -> Value {
-            let request = try createRequest(.POST, path: path, queryItems: queryItems, body: multipart.data)
+            let request = try createRequest(.POST, path: path, queryItems: queryItems, body: multipart.body)
             settings.headers[.contentType] = "multipart/form-data; boundary=" + multipart.boundary
             return try await send(request: request)
         }
