@@ -90,7 +90,7 @@ public extension HTTP {
         
         private func createRequest(_ method: Method, path: String, queryItems: [URLQueryItem], body: Data?) throws -> URLRequest {
             guard var components = URLComponents(string: baseURL) else { throw Failure.invalid(url: baseURL) }
-            components.path = "/" + path
+            components.path = components.path + "/" + path
             components.queryItems = queryItems.isEmpty ? nil : queryItems
             guard let url = components.url else { throw Failure.invalid(url: baseURL) }
             var request = URLRequest(url: url)
